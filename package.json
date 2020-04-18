@@ -1,6 +1,6 @@
 {
-  "name": "rfm.fyi",
-  "homepage": "https://sospedra.github.io/rfm.fyi",
+  "name": "rfm",
+  "homepage": "https://sospedra.github.io/rfm",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
