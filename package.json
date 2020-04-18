@@ -1,6 +1,7 @@
 {
   "name": "rfm",
   "version": "0.1.1",
+  "homepage": "https://sospedra.github.io/rfm",
   "private": false,
   "license": "SEE LICENSE IN LICENSE",
   "eslintConfig": {
@@ -40,8 +41,10 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "react": "^16.13.1",
+    "react-content-loader": "^5.0.4",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "swr": "^0.2.0",
     "tailwindcss": "^1.2.0",
     "typescript": "~3.7.2"
   },
