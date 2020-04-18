@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 13
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
@@ -24,6 +24,6 @@ jobs:
       - name: Publish github pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/sospedra/rfm.git
-          npm run gh-pages -- -u "github-actions-bot <support+actions@github.com>"
+          yarn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
