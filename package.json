@@ -1,29 +1,9 @@
 {
   "name": "rfm",
   "homepage": "https://sospedra.github.io/rfm",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
-  },
-  "scripts": {
-    "build": "react-scripts build",
-    "deploy": "gh-pages -d build -u \"github-actions-bot <support+actions@github.com>\"",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "start": "react-scripts start",
-    "test": "react-scripts test"
-  },
+  "version": "0.1.1",
+  "private": false,
+  "license": "SEE LICENSE IN LICENSE",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -39,7 +19,38 @@
       "last 1 safari version"
     ]
   },
+  "scripts": {
+    "build:css": "postcss src/tailwind.src.css -o src/tailwind.css --env production",
+    "build:js": "react-scripts build",
+    "build": "run-s build:*",
+    "deploy:build": "yarn build",
+    "deploy:release": "gh-pages -d build -u \"github-actions-bot <support+actions@github.com>\"",
+    "deploy": "run-s deploy:*",
+    "eject": "react-scripts eject",
+    "start:css": "postcss src/tailwind.src.css -o src/tailwind.css -w",
+    "start:js": "react-scripts start",
+    "start": "run-p start:*",
+    "test": "react-scripts test"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "tailwindcss": "^1.2.0",
+    "typescript": "~3.7.2"
+  },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "@fullhuman/postcss-purgecss": "^2.1.2",
+    "gh-pages": "^2.2.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.0",
+    "purgecss": "^2.1.2"
   }
 }
