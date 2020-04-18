@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/rfm.fyi/static/css/main.5f361e03.chunk.css",
+    "main.js": "/rfm.fyi/static/js/main.19f34218.chunk.js",
+    "main.js.map": "/rfm.fyi/static/js/main.19f34218.chunk.js.map",
+    "runtime-main.js": "/rfm.fyi/static/js/runtime-main.6a2c41d4.js",
+    "runtime-main.js.map": "/rfm.fyi/static/js/runtime-main.6a2c41d4.js.map",
+    "static/js/2.9f3405e8.chunk.js": "/rfm.fyi/static/js/2.9f3405e8.chunk.js",
+    "static/js/2.9f3405e8.chunk.js.map": "/rfm.fyi/static/js/2.9f3405e8.chunk.js.map",
+    "index.html": "/rfm.fyi/index.html",
+    "precache-manifest.f76560583327c5f7f33e146b6f697aff.js": "/rfm.fyi/precache-manifest.f76560583327c5f7f33e146b6f697aff.js",
+    "service-worker.js": "/rfm.fyi/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/rfm.fyi/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.9f3405e8.chunk.js.LICENSE.txt": "/rfm.fyi/static/js/2.9f3405e8.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/rfm.fyi/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6a2c41d4.js",
+    "static/js/2.9f3405e8.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.19f34218.chunk.js"
+  ]
+}
