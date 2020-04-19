@@ -62,7 +62,8 @@ const List: React.FC<{
               href={body.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-block text-lg text-blue-600 hover:text-blue-800'
+              className='text-lg text-blue-600 hover:text-blue-800'
+              style={{ display: 'block' }}
             >
               {body.owner}/<b>{body.name}</b>
             </a>

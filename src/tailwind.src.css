@@ -21,8 +21,7 @@ a[href*="//"]:not([href*="sospedra.github.io"])
 a[href*="//"]:not([href*="sospedra.me"]):after,
 a[href*="//"]:not([href*="sospedra.github.io"]):after
 {
-  @apply absolute inline-block opacity-75;
+  @apply inline-block opacity-75;
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
   transform: translateY(-3px) scale(0.8);
-  right: -0.66rem;
 }
