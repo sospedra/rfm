@@ -44,6 +44,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "language-map": "^1.4.0",
     "new-github-issue-url": "^0.2.1",
     "react": "^16.13.1",
     "react-content-loader": "^5.0.4",

@@ -8,7 +8,7 @@ import SubmitButton from './SubmitButton'
 const Submit: React.FC<{}> = () => {
   const [githubRepo, setGithubRepo] = useState('')
   const [inputValue, setInputValue] = useState('')
-  const { data } = useSWR(githubRepo, fetcherSubmitRequest)
+  const { data, error } = useSWR(githubRepo, fetcherSubmitRequest)
 
   return (
     <Shell>
@@ -37,6 +37,13 @@ const Submit: React.FC<{}> = () => {
           setGithubRepo={setGithubRepo}
           data={data}
         />
+
+        {error && (
+          <aside className='p-4 m-6 text-red-700 border border-red-700 rounded'>
+            {console.error(error)}
+            Something went wrong. Check the report details in the console.
+          </aside>
+        )}
       </section>
 
       <Preview data={data} />

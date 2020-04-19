@@ -1,3 +1,5 @@
+import langmap from 'language-map'
+
 const GITHUB_ROOT = 'https://api.github.com'
 
 export type Request = {
@@ -41,16 +43,33 @@ export const fetcherRequestList = async (query: string = '') => {
 }
 
 export type SubmitRequest = {
+  aceMode?: string
+  aliases?: string
+  color?: string
   description: string
+  extensions?: string
+  filenames?: string
   fullName: string
+  group?: string
+  interpreters?: string
   language: string
   license: string
   name: string
   openIssues: number
   stars: number
-  topics: string
+  topics?: string
   updatedAt: string
   url: string
+}
+
+const safe = <T extends { [key: string]: any }>(
+  collection: T | undefined,
+  key: keyof T,
+) => {
+  if (!collection) return {}
+  let property = collection[key] as string | string[] | number
+  if (property instanceof Array) property = property.join(', ')
+  return !!property ? { [key]: property } : {}
 }
 
 export const fetcherSubmitRequest = async (repoUrl: string) => {
@@ -65,6 +84,7 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
     },
   )
   const payload = await response.json()
+  const language = langmap[payload.language]
   const repo: SubmitRequest = {
     description: payload.description,
     fullName: payload.full_name,
@@ -73,9 +93,16 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
     name: payload.name,
     openIssues: payload.open_issues_count,
     stars: payload.stargazers_count,
-    topics: payload.topics.join(', '),
     updatedAt: payload.updated_at,
     url: payload.url,
+    ...safe(payload, 'topics'),
+    ...safe(language, 'filenames'),
+    ...safe(language, 'aceMode'),
+    ...safe(language, 'aliases'),
+    ...safe(language, 'color'),
+    ...safe(language, 'extensions'),
+    ...safe(language, 'group'),
+    ...safe(language, 'interpreters'),
   }
 
   return repo

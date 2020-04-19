@@ -6,7 +6,7 @@ const Preview: React.FC<{
 }> = (props) =>
   props.data ? (
     <section className='flex justify-center py-6'>
-      <div className='w-full'>
+      <div className='w-full sm:w-auto'>
         <p className='py-4 text-lg'>
           The repo <b>{props.data.fullName}</b> will be posted
         </p>
