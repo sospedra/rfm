@@ -1,0 +1,4 @@
+contact_links:
+  - name: 🚧 Submit a new RFM
+    url: https://sospedra.github.io/rfm/#/submit
+    about: Add a new repo that needs a maintainer
