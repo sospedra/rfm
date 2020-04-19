@@ -1,7 +1,6 @@
 import React from 'react'
 import { Code as PlaceholderCode } from 'react-content-loader'
 import { Request } from '../rfm/services/api/github'
-import { request } from 'http'
 
 const selectMessage = (total?: number) => {
   switch (total) {

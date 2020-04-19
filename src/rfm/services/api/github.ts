@@ -39,3 +39,44 @@ export const fetcherRequestList = async (query: string = '') => {
     total: payload.total_count,
   }
 }
+
+export type SubmitRequest = {
+  description: string
+  fullName: string
+  language: string
+  license: string
+  name: string
+  openIssues: number
+  stars: number
+  topics: string
+  updatedAt: string
+  url: string
+}
+
+export const fetcherSubmitRequest = async (repoUrl: string) => {
+  const [_, pathname] = repoUrl.split('github.com/')
+  const [owner, name] = pathname.split('/')
+  const response: { [key: string]: any } = await fetch(
+    `${GITHUB_ROOT}/repos/${owner}/${name}`,
+    {
+      headers: {
+        Accept: 'application/vnd.github.mercy-preview+json',
+      },
+    },
+  )
+  const payload = await response.json()
+  const repo: SubmitRequest = {
+    description: payload.description,
+    fullName: payload.full_name,
+    language: payload.language,
+    license: payload.license.spdx_id,
+    name: payload.name,
+    openIssues: payload.open_issues_count,
+    stars: payload.stargazers_count,
+    topics: payload.topics.join(', '),
+    updatedAt: payload.updated_at,
+    url: payload.url,
+  }
+
+  return repo
+}
