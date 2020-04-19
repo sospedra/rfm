@@ -1,0 +1,6 @@
+#submit {
+  display: block;
+}
+#submit:after {
+  filter: invert(1);
+}
