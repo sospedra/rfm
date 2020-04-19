@@ -80,7 +80,12 @@ const List: React.FC<{
             <p className='text-sm text-gray-700'>
               Requested at{' '}
               <b className='font-semibold'>{createdAt.toLocaleDateString()}</b>{' '}
-              <a href={url} className='text-blue-600 hover:text-blue-800'>
+              <a
+                href={url}
+                className='text-blue-600 hover:text-blue-800'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 Did something change?
               </a>
             </p>
