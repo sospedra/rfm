@@ -1,6 +1,10 @@
 import React from 'react'
 import { Code as PlaceholderCode } from 'react-content-loader'
+import humanNumber from 'human-number'
 import { Request } from '../rfm/services/api/github'
+import Star from '../rfm/components/Star'
+import Issue from '../rfm/components/Issue'
+import Circle from '../rfm/components/Circle'
 
 const selectMessage = (total?: number) => {
   switch (total) {
@@ -52,8 +56,47 @@ const List: React.FC<{
     <section className='w-full py-4'>
       {selectMessage(props.total)}
       <ul>
-        {props.requestList.map((repoRequest) => (
-          <li key={repoRequest.id}>{repoRequest.url}</li>
+        {props.requestList.map(({ url, createdAt, body }) => (
+          <li key={url} className='py-4 border-b sm:mx-4'>
+            <a
+              href={body.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='inline-block text-lg text-blue-600 hover:text-blue-800'
+            >
+              {body.owner}/<b>{body.name}</b>
+            </a>
+            <p className='pt-1'>{body.description}</p>
+            <div className='flex flex-row flex-wrap items-end w-full pt-1 text-sm'>
+              {body.topics?.map((topic) => (
+                <span
+                  key={topic}
+                  className='p-1 mb-1 mr-1 text-pink-500 bg-pink-100 rounded'
+                >
+                  {topic}
+                </span>
+              ))}
+            </div>
+            <p className='text-sm text-gray-700'>
+              Requested at{' '}
+              <b className='font-semibold'>{createdAt.toLocaleDateString()}</b>{' '}
+              <a href={url} className='text-blue-600 hover:text-blue-800'>
+                Did something change?
+              </a>
+            </p>
+            <div className='flex flex-row pt-1 text-sm text-gray-700'>
+              <span className='mr-4'>
+                <Star /> {humanNumber(body.stars)}
+              </span>
+              <span className='flex flex-row items-center mr-4'>
+                <Circle color={body.color} /> {body.language}
+              </span>
+              <span className='mr-4'>
+                <Issue /> {body.openIssues}
+              </span>
+              <span className='mr-4'>{body.license}</span>
+            </div>
+          </li>
         ))}
       </ul>
     </section>

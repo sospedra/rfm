@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer: React.FC<{}> = () => {
   return (
-    <footer className='flex flex-row justify-between w-full max-w-4xl p-4 mx-auto'>
+    <footer className='flex flex-row justify-between w-full max-w-4xl p-4 mx-auto mt-4'>
       <p>
         Hand-crafted with
         <span className='mx-1 text-red-700' aria-label='heart' role='img'>

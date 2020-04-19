@@ -2,8 +2,29 @@ import langmap from 'language-map'
 
 const GITHUB_ROOT = 'https://api.github.com'
 
+export type SubmitRequest = {
+  aceMode?: string
+  aliases?: string[]
+  color?: string
+  description: string
+  extensions?: string[]
+  filenames?: string[]
+  fullName: string
+  owner: string
+  name: string
+  group?: string
+  interpreters?: string[]
+  language: string
+  license?: string
+  openIssues: number
+  stars: number
+  topics?: string[]
+  updatedAt: string
+  url: string
+}
+
 export type Request = {
-  body: string
+  body: SubmitRequest
   comments: number
   createdAt: Date
   title: string
@@ -26,15 +47,22 @@ export const fetcherRequestList = async (query: string = '') => {
     items: { [key: string]: any }[]
     total_count: number
   } = await response.json()
-  const requestList = payload.items.map<Request>((item) => ({
-    body: item.body,
-    id: item.id,
-    comments: item.comments,
-    createdAt: new Date(item.created_at),
-    title: item.title,
-    updatedAt: new Date(item.updated_at),
-    url: item.url,
-  }))
+  const items = payload.items.map<Request | null>((item) => {
+    try {
+      return {
+        body: JSON.parse(item.body),
+        id: item.id,
+        comments: item.comments,
+        createdAt: new Date(item.created_at),
+        title: item.title,
+        updatedAt: new Date(item.updated_at),
+        url: item.html_url,
+      }
+    } catch (ex) {
+      return null
+    }
+  })
+  const requestList = items.filter((_) => _ !== null) as Request[]
 
   return {
     requestList,
@@ -42,34 +70,14 @@ export const fetcherRequestList = async (query: string = '') => {
   }
 }
 
-export type SubmitRequest = {
-  aceMode?: string
-  aliases?: string
-  color?: string
-  description: string
-  extensions?: string
-  filenames?: string
-  fullName: string
-  group?: string
-  interpreters?: string
-  language: string
-  license: string
-  name: string
-  openIssues: number
-  stars: number
-  topics?: string
-  updatedAt: string
-  url: string
-}
-
 const safe = <T extends { [key: string]: any }>(
   collection: T | undefined,
   key: keyof T,
+  name?: string,
 ) => {
   if (!collection) return {}
   let property = collection[key] as string | string[] | number
-  if (property instanceof Array) property = property.join(', ')
-  return !!property ? { [key]: property } : {}
+  return !!property ? { [name || key]: property } : {}
 }
 
 export const fetcherSubmitRequest = async (repoUrl: string) => {
@@ -89,12 +97,13 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
     description: payload.description,
     fullName: payload.full_name,
     language: payload.language,
-    license: payload.license.spdx_id,
-    name: payload.name,
+    name,
     openIssues: payload.open_issues_count,
+    owner,
     stars: payload.stargazers_count,
     updatedAt: payload.updated_at,
-    url: payload.url,
+    url: payload.html_url,
+    ...safe(payload.license, 'spdx_id', 'license'),
     ...safe(payload, 'topics'),
     ...safe(language, 'filenames'),
     ...safe(language, 'aceMode'),

@@ -14,7 +14,15 @@ export const createGithubIssue = (request?: SubmitRequest) => {
 }
 
 export const isValidGithubUrl = (candidate: string) => {
-  return isURL(candidate, {
+  const isValidUrl = isURL(candidate, {
     host_whitelist: [/^.*github\.com$/],
   })
+  const isValidFullName =
+    candidate.split('/').length === 2 && candidate.match(/\//gi)?.length === 1
+
+  return isValidUrl || isValidFullName
+}
+
+export const createGithubRepoUrl = (candidate: string) => {
+  return isURL(candidate) ? candidate : `https://github.com/${candidate}`
 }

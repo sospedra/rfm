@@ -21,3 +21,8 @@ declare module 'language-map' {
   }
   export default d
 }
+
+declare module 'human-number' {
+  const d: (n: number) => string
+  export default d
+}

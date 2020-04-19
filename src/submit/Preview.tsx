@@ -1,10 +1,32 @@
 import React from 'react'
 import { SubmitRequest } from '../rfm/services/api/github'
 
+const formatProperty = (key: string, data?: SubmitRequest) => {
+  const property = data && data[key as keyof SubmitRequest]
+  if (property instanceof Array) return `[${property.join(', ')}]`
+  return property
+}
+
 const Preview: React.FC<{
   data?: SubmitRequest
-}> = (props) =>
-  props.data ? (
+}> = (props) => {
+  if (!props.data) return null
+
+  if (!props.data.fullName) {
+    return (
+      <section className='flex flex-col justify-center py-6 text-lg text-center'>
+        <p>
+          We couldn't find any repo named{' '}
+          <b>
+            {props.data.owner}/{props.data.name}
+          </b>
+        </p>
+        <p>Try to copy and paste the link directly</p>
+      </section>
+    )
+  }
+
+  return (
     <section className='flex justify-center py-6'>
       <div className='w-full sm:w-auto'>
         <p className='py-4 text-lg'>
@@ -19,7 +41,7 @@ const Preview: React.FC<{
                 :
                 <span className='text-gray-800'>
                   {' '}
-                  {props.data && props.data[key as keyof SubmitRequest]}
+                  {formatProperty(key, props.data)}
                 </span>
                 ,
               </span>
@@ -29,6 +51,7 @@ const Preview: React.FC<{
         </pre>
       </div>
     </section>
-  ) : null
+  )
+}
 
 export default Preview
