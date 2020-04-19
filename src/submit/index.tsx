@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import useSWR from 'swr'
 import Shell from '../rfm/components/Shell'
 import { fetcherSubmitRequest } from '../rfm/services/api/github'
-import './submit.css'
 import Preview from './Preview'
 import SubmitButton from './SubmitButton'
 

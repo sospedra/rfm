@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitRequest } from '../rfm/services/api/github'
 import { createGithubIssue, isValidGithubUrl } from '../rfm/services/github'
+import './submit-button.css'
 
 const SubmitButton: React.FC<{
   data?: SubmitRequest
