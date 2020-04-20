@@ -11,11 +11,11 @@ const Footer: React.FC<{}> = () => {
         by
         <a
           className='ml-1 link'
-          href='https://twitter.com/sospedra_r'
+          href='https://sospedra.me'
           rel='noopener noreferrer'
           target='_blank'
         >
-          @sospedra_r
+          @sospedra
         </a>
       </p>
 

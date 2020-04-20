@@ -105,6 +105,28 @@ const List: React.FC<{
           </li>
         ))}
       </ul>
+      <div className='pt-4 text-sm italic text-gray-800'>
+        <p>
+          <b className='font-semibold'>
+            ProTip
+            <span aria-label='trademark' role='img'>
+              ™️
+            </span>{' '}
+          </b>
+          Results are limited to a{' '}
+          <b className='font-semibold'>maximum of 100 items</b> per search.
+        </p>
+        <p>
+          To get the best results{' '}
+          <b className='font-semibold'>refine your query</b> or inspect the{' '}
+          <a
+            className='text-blue-500 hover:text-blue-700'
+            href='https://github.com/sospedra/rfm'
+          >
+            repo
+          </a>
+        </p>
+      </div>
     </section>
   )
 }

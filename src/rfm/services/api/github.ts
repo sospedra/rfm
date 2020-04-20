@@ -41,7 +41,7 @@ export const fetcherRequestList = async (query: string = '') => {
     query,
     'in:title,body',
   ]
-  const path = `${GITHUB_ROOT}/search/issues?q=${params.join('+')}`
+  const path = `${GITHUB_ROOT}/search/issues?q=${params.join('+')}&per_page=100`
   const response = await fetch(path)
   const payload: {
     items: { [key: string]: any }[]
