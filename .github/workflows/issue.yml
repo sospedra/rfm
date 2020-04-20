@@ -19,7 +19,7 @@ jobs:
       - name: create-issue
         uses: maxkomarychev/oction-create-issue@v0.7.1
         with:
-          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          token: ${{ secrets.RFM_BOT }}
           title: 🚧 Is this repo maintained?
           owner: ${{ steps.vars.outputs.owner }}
           repo: ${{ steps.vars.outputs.name }}
