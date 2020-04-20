@@ -4,30 +4,26 @@ on:
     types: [opened]
 
 jobs:
-  one:
-    runs-on: ubuntu-16.04
+  create:
+    if: "contains(github.event.issue.labels.*.name, 'search')"
+    name: Create issue
+    runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+      - name: vars
+        id: vars
+        uses: gr2m/get-json-paths-action@v1.x
+        with:
+          json: ${{ github.event.issue.body }}
+          owner: 'owner'
+          name: 'name'
+      - name: create-issue
+        uses: maxkomarychev/oction-create-issue@v0.7.1
+        with:
+          token: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+          title: 🚧 Is this repo maintained?
+          owner: ${{ steps.vars.outputs.owner }}
+          repo: ${{ steps.vars.outputs.name }}
+          body: |
+            👋 The user @${{ github.event.issue.user.login }} marked this repo in **need for maintainers**.
+            ✅ If you're **looking for collaborators** no action is required
+            👮🏻‍♂️ If this repo it's **well-supported please put a comment** here ${{ github.event.issue.html_url }}
