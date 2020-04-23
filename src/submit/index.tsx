@@ -38,7 +38,7 @@ const Submit: React.FC<{}> = () => {
               <animated.div key={key} style={props}>
                 <Preview data={data} />
               </animated.div>,
-            ][item]
+            ][1]
           })}
         </div>
       </div>
