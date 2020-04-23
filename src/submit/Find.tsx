@@ -1,50 +1,61 @@
-import React, { useState } from 'react'
-import SubmitButton from './SubmitButton'
-import { createGithubRepoUrl } from '../rfm/services/github'
+import React, { useState, useEffect } from 'react'
+import { createGithubRepoUrl, isValidGithubUrl } from '../rfm/services/github'
 import { SubmitRequest } from '../rfm/services/api/github'
+import Error from '../rfm/components/Error'
+import Button from './Button'
 
-const Find: React.FC<{
-  setGithubRepo: (repo: string) => void
+const Repo: React.FC<{
+  setRepoUrl: (repo: string) => void
+  onNext: () => void
+  error: any
   data?: SubmitRequest
 }> = (props) => {
   const [inputValue, setInputValue] = useState('')
 
-  return (
-    <form
-      className='flex flex-col items-center w-full'
-      onSubmit={(e) => {
-        e.preventDefault()
-        props.setGithubRepo(createGithubRepoUrl(inputValue))
-      }}
-    >
-      <div
-        className={`w-full transition transform duration-1000 relative md:w-2/3 ${
-          props.data?.fullName
-            ? '-translate-y-8 opacity-0'
-            : 'translate-y-0 opacity-100'
-        }`}
-      >
-        <input
-          id='githubRepo'
-          value={inputValue}
-          onChange={(e) => setInputValue(e.currentTarget.value)}
-          className='w-full py-2 pl-24 pr-4 my-4 border rounded shadow-lg'
-        />
-        <span
-          className='absolute text-gray-500'
-          style={{
-            left: '0.9rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          }}
-        >
-          github.com/
-        </span>
-      </div>
+  useEffect(() => {
+    if (props.data?.fullName) {
+      props.onNext()
+    }
+  }, [props.data])
 
-      <SubmitButton inputValue={inputValue} data={props.data} />
-    </form>
+  return (
+    <section>
+      <h1 className='font-mono text-xl font-bold'>
+        Add a new repository that needs maintance
+      </h1>
+
+      <form
+        className='flex flex-col items-center w-full'
+        onSubmit={(e) => {
+          e.preventDefault()
+          props.setRepoUrl(createGithubRepoUrl(inputValue))
+        }}
+      >
+        <div className='relative w-full md:w-2/3'>
+          <input
+            id='githubRepo'
+            value={inputValue}
+            onChange={(e) => setInputValue(e.currentTarget.value)}
+            className='w-full py-2 pl-24 pr-4 my-4 border rounded shadow-lg'
+            required
+          />
+          <span
+            className='absolute text-gray-500'
+            style={{
+              left: '0.8rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            github.com/
+          </span>
+        </div>
+
+        <Error error={props.error} />
+        <Button disabled={!isValidGithubUrl(inputValue)}>Find repo</Button>
+      </form>
+    </section>
   )
 }
 
-export default Find
+export default Repo

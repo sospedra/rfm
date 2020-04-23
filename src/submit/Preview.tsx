@@ -1,5 +1,7 @@
 import React from 'react'
 import { SubmitRequest } from '../rfm/services/api/github'
+import { createGithubIssue } from '../rfm/services/github'
+import Button from './Button'
 
 const formatProperty = (key: string, data?: SubmitRequest) => {
   const property = data && data[key as keyof SubmitRequest]
@@ -10,15 +12,13 @@ const formatProperty = (key: string, data?: SubmitRequest) => {
 const Preview: React.FC<{
   data?: SubmitRequest
 }> = (props) => {
-  if (!props.data) return null
-
-  if (!props.data.fullName) {
+  if (!props.data?.fullName) {
     return (
       <section className='flex flex-col justify-center py-6 text-lg text-center'>
         <p>
           We couldn't find any repo named{' '}
           <b>
-            {props.data.owner}/{props.data.name}
+            {props.data?.owner}/{props.data?.name}
           </b>
         </p>
         <p>Try to copy and paste the link directly</p>
@@ -28,6 +28,7 @@ const Preview: React.FC<{
 
   return (
     <section className='flex justify-center py-6'>
+      <Button href={createGithubIssue(props.data)}>Submit request</Button>
       <div className='w-full sm:w-auto'>
         <p className='py-4 text-lg'>
           The repo <b>{props.data.fullName}</b> will be posted
