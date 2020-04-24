@@ -6,6 +6,10 @@
 html {
   scroll-behavior: smooth;
 }
+html,
+body {
+  @apply overflow-x-hidden;
+}
 a.link {
   @apply text-blue-600;
 }

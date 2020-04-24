@@ -16,6 +16,7 @@ export type SubmitRequest = {
   interpreters?: string[]
   language: string
   license?: string
+  requestIssue: string
   openIssues: number
   stars: number
   topics?: string[]
@@ -103,6 +104,7 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
     stars: payload.stargazers_count,
     updatedAt: payload.updated_at,
     url: payload.html_url,
+    requestIssue: '',
     ...safe(payload.license, 'spdx_id', 'license'),
     ...safe(payload, 'topics'),
     ...safe(language, 'filenames'),
@@ -115,4 +117,40 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
   }
 
   return repo
+}
+
+export const fetcherFindSupportIssues = async (fullName: string) => {
+  const params = [
+    `repo:${fullName}`,
+    'state:open',
+    'support OR maintain',
+    'in:title,body',
+  ]
+  const path = `${GITHUB_ROOT}/search/issues?q=${params.join('+')}&per_page=10`
+  const response = await fetch(path)
+  const payload: {
+    items: { [key: string]: any }[]
+    total_count: number
+  } = await response.json()
+  const items = payload.items.map<
+    Partial<Request> & {
+      user: string
+      number: number
+      body: string
+    }
+  >((item) => ({
+    id: item.id,
+    body: item.body,
+    comments: item.comments,
+    createdAt: new Date(item.created_at),
+    title: item.title,
+    url: item.html_url,
+    user: item.user.login,
+    number: item.number,
+  }))
+
+  return {
+    requestList: items,
+    total: payload.total_count,
+  }
 }

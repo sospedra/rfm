@@ -10,13 +10,13 @@ import Submit from './submit'
 const App: React.FC<{}> = () => {
   const location = useLocation()
   const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
   })
 
   return (
-    <HashRouter basename='/'>
+    <>
       {transitions.map(({ item: location, props, key }) => (
         <animated.div key={key} style={props}>
           <Switch location={location}>
@@ -25,13 +25,15 @@ const App: React.FC<{}> = () => {
           </Switch>
         </animated.div>
       ))}
-    </HashRouter>
+    </>
   )
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <HashRouter basename='/'>
+      <App />
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 )

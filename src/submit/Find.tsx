@@ -33,7 +33,6 @@ const Repo: React.FC<{
       >
         <div className='relative w-full md:w-2/3'>
           <input
-            id='githubRepo'
             value={inputValue}
             onChange={(e) => setInputValue(e.currentTarget.value)}
             className='w-full py-2 pl-24 pr-4 my-4 border rounded shadow-lg'
@@ -42,7 +41,7 @@ const Repo: React.FC<{
           <span
             className='absolute text-gray-500'
             style={{
-              left: '0.8rem',
+              left: '0.5rem',
               top: '50%',
               transform: 'translateY(-50%)',
             }}

@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { useTransition, animated } from 'react-spring'
 import { fetcherSubmitRequest } from '../rfm/services/api/github'
 import Shell from '../rfm/components/Shell'
+import Progress from '../rfm/components/Progress'
 import Preview from './Preview'
 import Issue from './Issue'
 import Find from './Find'
@@ -21,6 +22,7 @@ const Submit: React.FC<{}> = () => {
   return (
     <Shell>
       <div className='flex flex-col items-center justify-center w-full text-center md:p-8'>
+        <Progress ratio={(index + 1) / 3} />
         <div className='w-full'>
           {transitions.map(({ item, props, key }) => {
             return [
@@ -38,7 +40,7 @@ const Submit: React.FC<{}> = () => {
               <animated.div key={key} style={props}>
                 <Preview data={data} />
               </animated.div>,
-            ][1]
+            ][item]
           })}
         </div>
       </div>
