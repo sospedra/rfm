@@ -16,10 +16,10 @@ const parseRequestIssue = (requestIssue: string) => {
       requestIssueNumber: -1,
     }
 
-  const chunks = requestIssue.split('/')
+  const [left, number] = requestIssue.split('/issues/')
   return {
-    requestIssueURL: chunks.splice(0, -1).join('/'),
-    requestIssueNumber: Number(chunks[chunks.length - 1]),
+    requestIssueFullName: left.split('/').slice(0, -2).join('/'),
+    requestIssueNumber: Number(number),
   }
 }
 
