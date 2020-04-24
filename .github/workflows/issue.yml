@@ -23,13 +23,14 @@ jobs:
         uses: maxkomarychev/oction-create-issue@v0.7.1
         with:
           token: ${{ secrets.RFM_BOT }}
-          title: 🚧 Is this repo maintained?
+          title: 🚧 Is this repo looking for support?
           owner: ${{ steps.vars.outputs.owner }}
           repo: ${{ steps.vars.outputs.name }}
           body: |
-            👋 The user @${{ github.event.issue.user.login }} marked this repo in **need for maintainers**.
-            ✅ If you're **looking for collaborators** no action is required
-            👮🏻‍♂️ If this repo it's **well-supported please put a comment** here ${{ github.event.issue.html_url }}
+            Hello, we created this issue becuase the user @${{ github.event.issue.user.login }} told us you are calling for maintainers.
+            ✅ If you're **looking for collaborators** no action is required.
+            👮🏻‍♂️ If this repo is **well-supported please put a comment** here ${{ github.event.issue.html_url }} and we'll close it immediately.
+            Sorry for any inconvinience. We understand this message can feel spammy but we really think is good to double-check first with the current owners :)
       - name: comment-issue
         if: steps.vars.outputs.requestIssueFullName != 'NONE'
         uses: peter-evans/create-or-update-comment@v1
@@ -38,7 +39,8 @@ jobs:
           issue-number: ${{ steps.vars.outputs.requestIssueNumber }}
           repository: ${{ steps.vars.outputs.requestIssueFullName }}
           body: |
-            🚧 Is this repo maintained?
-            👋 The user @${{ github.event.issue.user.login }} marked this repo in **need for maintainers**.
-            ✅ If you're **looking for collaborators** no action is required
-            👮🏻‍♂️ If this repo it's **well-supported please put a comment** here ${{ github.event.issue.html_url }}
+            🚧 Is this repo looking for support?
+            Hello, we created this issue becuase the user @${{ github.event.issue.user.login }} told us you are calling for maintainers.
+            ✅ If you're **looking for collaborators** no action is required.
+            👮🏻‍♂️ If this repo is **well-supported please put a comment** here ${{ github.event.issue.html_url }} and we'll close it immediately.
+            Sorry for any inconvinience. We understand this message can feel spammy but we really think is good to double-check first with the current owners :)
