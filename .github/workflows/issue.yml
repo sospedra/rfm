@@ -16,7 +16,10 @@ jobs:
           json: ${{ github.event.issue.body }}
           owner: 'owner'
           name: 'name'
+          requestIssueURL: 'requestIssueURL'
+          requestIssueNumber: 'requestIssueNumber'
       - name: create-issue
+        if: steps.vars.outputs.requestIssueURL == 'NONE'
         uses: maxkomarychev/oction-create-issue@v0.7.1
         with:
           token: ${{ secrets.RFM_BOT }}
@@ -24,6 +27,18 @@ jobs:
           owner: ${{ steps.vars.outputs.owner }}
           repo: ${{ steps.vars.outputs.name }}
           body: |
+            👋 The user @${{ github.event.issue.user.login }} marked this repo in **need for maintainers**.
+            ✅ If you're **looking for collaborators** no action is required
+            👮🏻‍♂️ If this repo it's **well-supported please put a comment** here ${{ github.event.issue.html_url }}
+      - name: comment-issue
+        if: steps.vars.outputs.requestIssueURL != 'NONE'
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.RFM_BOT }}
+          issue-number: ${{ steps.vars.outputs.requestIssueNumber }}
+          repository: ${{ steps.vars.outputs.requestIssueURL }}
+          body: |
+            🚧 Is this repo maintained?
             👋 The user @${{ github.event.issue.user.login }} marked this repo in **need for maintainers**.
             ✅ If you're **looking for collaborators** no action is required
             👮🏻‍♂️ If this repo it's **well-supported please put a comment** here ${{ github.event.issue.html_url }}

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { List as PlaceholderList } from 'react-content-loader'
 import Markdown from 'markdown-to-jsx'
 import useSWR from 'swr'
-import { isValidGithubUrl } from '../rfm/services/github'
+import { isValidGithubIssueUrl, NONE_ISSUE } from '../rfm/services/github'
 import {
   SubmitRequest,
   fetcherFindSupportIssues,
@@ -13,8 +13,6 @@ import Error from '../rfm/components/Error'
 import Button from './Button'
 import './issue.css'
 
-const NONE_ISSUE = 'NONE'
-
 const Issue: React.FC<{
   onNext: () => void
   data?: SubmitRequest
@@ -22,8 +20,7 @@ const Issue: React.FC<{
   setRequestIssue: (issue: string) => void
 }> = (props) => {
   const [didSubmit, setDidSubmit] = useState(false)
-  const isValidUrl =
-    isValidGithubUrl(props.requestIssue) || props.requestIssue === NONE_ISSUE
+  const isValidUrl = isValidGithubIssueUrl(props.requestIssue)
   const { data, error } = useSWR(
     [props.data?.fullName],
     fetcherFindSupportIssues,

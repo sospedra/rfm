@@ -9,13 +9,27 @@ const formatProperty = (key: string, data?: SubmitRequest) => {
   return property
 }
 
+const parseRequestIssue = (requestIssue: string) => {
+  if (requestIssue === 'NONE')
+    return {
+      requestIssueURL: requestIssue,
+      requestIssueNumber: -1,
+    }
+
+  const chunks = requestIssue.split('/')
+  return {
+    requestIssueURL: chunks.splice(0, -1).join('/'),
+    requestIssueNumber: Number(chunks[chunks.length - 1]),
+  }
+}
+
 const Preview: React.FC<{
   data?: SubmitRequest
   requestIssue: string
 }> = (props) => {
   const repo = {
     ...props.data,
-    requestIssue: props.requestIssue,
+    ...parseRequestIssue(props.requestIssue),
   } as SubmitRequest
   return (
     <section className='flex flex-col items-center w-full py-6'>

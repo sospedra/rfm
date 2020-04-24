@@ -16,7 +16,8 @@ export type SubmitRequest = {
   interpreters?: string[]
   language: string
   license?: string
-  requestIssue: string
+  requestIssueURL: string
+  requestIssueNumber: number
   openIssues: number
   stars: number
   topics?: string[]
@@ -104,7 +105,8 @@ export const fetcherSubmitRequest = async (repoUrl: string) => {
     stars: payload.stargazers_count,
     updatedAt: payload.updated_at,
     url: payload.html_url,
-    requestIssue: '',
+    requestIssueURL: 'NONE',
+    requestIssueNumber: -1,
     ...safe(payload.license, 'spdx_id', 'license'),
     ...safe(payload, 'topics'),
     ...safe(language, 'filenames'),
@@ -123,6 +125,7 @@ export const fetcherFindSupportIssues = async (fullName: string) => {
   const params = [
     `repo:${fullName}`,
     'state:open',
+    'type:issue',
     'support OR maintain',
     'in:title,body',
   ]
