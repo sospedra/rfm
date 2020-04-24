@@ -11,6 +11,7 @@ const Repo: React.FC<{
   data?: SubmitRequest
 }> = (props) => {
   const [inputValue, setInputValue] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (props.data?.fullName) {
@@ -28,6 +29,7 @@ const Repo: React.FC<{
         className='flex flex-col items-center w-full'
         onSubmit={(e) => {
           e.preventDefault()
+          setLoading(true)
           props.setRepoUrl(createGithubRepoUrl(inputValue))
         }}
       >
@@ -51,7 +53,9 @@ const Repo: React.FC<{
         </div>
 
         <Error error={props.error} />
-        <Button disabled={!isValidGithubUrl(inputValue)}>Find repo</Button>
+        <Button disabled={!isValidGithubUrl(inputValue)} loading={loading}>
+          Find repo
+        </Button>
       </form>
     </section>
   )

@@ -5,6 +5,7 @@ const Button: React.FC<{
   disabled?: boolean
   href?: string
   form?: string
+  loading?: boolean
   children: string
 }> = (props) => {
   return props.href ? (
@@ -16,18 +17,26 @@ const Button: React.FC<{
       {props.children}
     </a>
   ) : (
-    <input
-      disabled={props.disabled}
-      id='submit'
-      type='submit'
-      form={props.form}
-      value={props.children}
-      className={`w-64 px-4 py-2 text-white rounded shadow-lg ${
+    <div
+      className={`gradient shadow-lg ${
         props.disabled
           ? 'bg-gray-500 cursor-not-allowed'
-          : 'cursor-pointer bg-pink-600 hover:bg-pink-700'
-      }`}
-    />
+          : 'bg-pink-600 cursor-pointer hover:bg-pink-700'
+      } ${props.loading ? 'bg-pink-700 cursor-wait loading' : ''}`}
+    >
+      <input
+        disabled={props.disabled || props.loading}
+        id='submit'
+        type='submit'
+        form={props.form}
+        value={props.children}
+        className={`w-64 px-4 py-2 text-white ${
+          props.disabled
+            ? 'cursor-not-allowed bg-gray-500'
+            : 'cursor-pointer bg-pink-600 hover:bg-pink-700'
+        } ${props.loading ? 'cursor-wait' : ''}`}
+      />
+    </div>
   )
 }
 
