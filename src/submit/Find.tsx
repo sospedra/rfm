@@ -16,11 +16,13 @@ const Repo: React.FC<{
   useEffect(() => {
     if (props.data?.fullName) {
       props.onNext()
+    } else {
+      setLoading(false)
     }
   }, [props.data])
 
   return (
-    <section>
+    <section className='flex flex-col w-full'>
       <h1 className='font-mono text-xl font-bold'>
         Add a new repository that needs maintance
       </h1>
@@ -53,6 +55,17 @@ const Repo: React.FC<{
         </div>
 
         <Error error={props.error} />
+        {props.data && !props.data?.fullName && (
+          <div className='flex flex-col justify-center py-6 text-lg text-center'>
+            <p>
+              We couldn't find any repo named{' '}
+              <b>
+                {props.data?.owner}/{props.data?.name}
+              </b>
+            </p>
+            <p>Try to copy and paste the link directly</p>
+          </div>
+        )}
         <Button disabled={!isValidGithubUrl(inputValue)} loading={loading}>
           Find repo
         </Button>

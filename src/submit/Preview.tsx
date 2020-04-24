@@ -12,30 +12,24 @@ const formatProperty = (key: string, data?: SubmitRequest) => {
 const Preview: React.FC<{
   data?: SubmitRequest
 }> = (props) => {
-  if (!props.data?.fullName) {
-    return (
-      <section className='flex flex-col justify-center py-6 text-lg text-center'>
-        <p>
-          We couldn't find any repo named{' '}
-          <b>
-            {props.data?.owner}/{props.data?.name}
-          </b>
-        </p>
-        <p>Try to copy and paste the link directly</p>
-      </section>
-    )
-  }
-
   return (
-    <section className='flex justify-center py-6'>
+    <section className='flex flex-col items-center w-full py-6'>
+      <h1 className='font-mono text-xl font-bold'>Save the request</h1>
+      <h3 className='mb-4 text-lg'>
+        You're gonna be redirected to our Github to save this request. After
+        that the project <b>{props.data?.fullName}</b> will be marked as calling
+        for maintainers.
+      </h3>
       <Button href={createGithubIssue(props.data)}>Submit request</Button>
-      <div className='w-full sm:w-auto'>
-        <p className='py-4 text-lg'>
-          The repo <b>{props.data.fullName}</b> will be posted
+      <div className='w-full text-left sm:w-auto'>
+        <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
+          Inspect
         </p>
+        <p className='pb-2'>This is the repo you're about to submit:</p>
+
         <pre className='overflow-auto'>
           <p>{`{`}</p>
-          {Object.keys(props.data).map((key) => (
+          {Object.keys(props.data || {}).map((key) => (
             <p className='pl-4' key={key}>
               <span className='text-pink-500'>{key}</span>
               <span className='whitespace-pre-wrap'>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
+import { List as PlaceholderList } from 'react-content-loader'
 import Markdown from 'markdown-to-jsx'
 import useSWR from 'swr'
 import { isValidGithubUrl } from '../rfm/services/github'
@@ -17,8 +18,10 @@ const NONE_ISSUE = 'NONE'
 const Issue: React.FC<{
   onNext: () => void
   data?: SubmitRequest
+  mutate: (clbk: (data: SubmitRequest) => any) => any
 }> = (props) => {
   const [issueURL, setIssueURL] = useState<string>('')
+  const [didSubmit, setDidSubmit] = useState(false)
   const isValidUrl = isValidGithubUrl(issueURL) || issueURL === NONE_ISSUE
   const { data, error } = useSWR(
     [props.data?.fullName],
@@ -28,7 +31,7 @@ const Issue: React.FC<{
   return (
     <section>
       <h1 className='font-mono text-xl font-bold'>Enter the issue link</h1>
-      <h3>
+      <h3 className='text-lg'>
         To ensure the best communication we need to know in which Github issue
         the owners of <b>{props.data?.fullName}</b> requested support to
         maintain the project
@@ -38,6 +41,8 @@ const Issue: React.FC<{
         className='flex flex-col items-center w-full'
         onSubmit={(e) => {
           e.preventDefault()
+          setDidSubmit(true)
+          props.mutate((data) => ({ ...data, requestIssue: issueURL }))
           props.onNext()
         }}
       >
@@ -51,59 +56,53 @@ const Issue: React.FC<{
             className='w-full px-4 py-2 my-4 border rounded shadow-lg'
             required
           />
-          {!!data?.total && (
-            <div className='flex flex-col flex-1 w-full'>
-              <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
-                Suggestions
-              </p>
-              <p className='pb-2 text-left'>Maybe it's one of these</p>
-              {data.requestList.map(
-                ({
-                  id,
-                  url,
-                  title,
-                  user,
-                  createdAt,
-                  comments,
-                  number,
-                  body,
-                }) => (
-                  <label
-                    key={id}
-                    className='flex flex-row items-baseline p-4 border-t cursor-pointer'
-                  >
-                    <input
-                      name='issue'
-                      type='radio'
-                      value={url}
-                      checked={issueURL === url}
-                      onChange={(e) => setIssueURL(e.currentTarget.value)}
-                    />
-                    <div className='flex-1 px-4 text-left'>
-                      <p className='font-bold'>
-                        <span className='text-sm'>#{number}</span> {title}
-                      </p>
-                      <div className='w-full text-xs italic text-gray-600 markdown'>
-                        <Markdown>{body?.slice(0, 140)}</Markdown>
-                        {'... '}
-                        <a
-                          href={url}
-                          className='text-blue-500 hover:text-blue-700'
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          view more
-                        </a>
-                      </div>
-                      <p className='text-sm text-gray-800'>
-                        Opened by <b>{user}</b> at{' '}
-                        <span>{createdAt?.toLocaleDateString()}</span>{' '}
-                        <Comments /> {comments}
-                      </p>
+
+          <div className='flex flex-col flex-1 w-full'>
+            <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
+              Suggestions
+            </p>
+            <p className='pb-2 text-left'>Maybe it's one of these</p>
+            {data?.requestList.map(
+              ({ id, url, title, user, createdAt, comments, number, body }) => (
+                <label
+                  key={id}
+                  className='flex flex-row items-baseline p-4 border-t cursor-pointer'
+                >
+                  <input
+                    name='issue'
+                    type='radio'
+                    value={url}
+                    checked={issueURL === url}
+                    onChange={(e) => setIssueURL(e.currentTarget.value)}
+                  />
+                  <div className='flex-1 px-4 text-left'>
+                    <p className='font-bold'>
+                      <span className='text-sm'>#{number}</span> {title}
+                    </p>
+                    <div className='w-full text-xs italic text-gray-600 markdown'>
+                      <Markdown>{body?.slice(0, 140)}</Markdown>
+                      {'... '}
+                      <a
+                        href={url}
+                        className='text-blue-500 hover:text-blue-700'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        view more
+                      </a>
                     </div>
-                  </label>
-                ),
-              )}
+                    <p className='text-sm text-gray-800'>
+                      Opened by <b>{user}</b> at{' '}
+                      <span>{createdAt?.toLocaleDateString()}</span>{' '}
+                      <Comments /> {comments}
+                    </p>
+                  </div>
+                </label>
+              ),
+            )}
+            {!data ? (
+              <PlaceholderList />
+            ) : (
               <label className='flex flex-row items-baseline p-4 border-t cursor-pointer'>
                 <input
                   name='issue'
@@ -124,12 +123,16 @@ const Issue: React.FC<{
                   </p>
                 </div>
               </label>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {createPortal(
-          <div className='sticky bottom-0 left-0 right-0 flex justify-center w-full p-2 bg-white'>
+          <div
+            className={`sticky bottom-0 left-0 right-0 flex justify-center w-full p-2 bg-white ${
+              didSubmit ? 'hidden' : ''
+            }`}
+          >
             <Button disabled={!isValidUrl} form='js-submit-issue'>
               Select request issue
             </Button>
