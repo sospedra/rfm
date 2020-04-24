@@ -18,11 +18,12 @@ const NONE_ISSUE = 'NONE'
 const Issue: React.FC<{
   onNext: () => void
   data?: SubmitRequest
-  mutate: (clbk: (data: SubmitRequest) => any) => any
+  requestIssue: string
+  setRequestIssue: (issue: string) => void
 }> = (props) => {
-  const [issueURL, setIssueURL] = useState<string>('')
   const [didSubmit, setDidSubmit] = useState(false)
-  const isValidUrl = isValidGithubUrl(issueURL) || issueURL === NONE_ISSUE
+  const isValidUrl =
+    isValidGithubUrl(props.requestIssue) || props.requestIssue === NONE_ISSUE
   const { data, error } = useSWR(
     [props.data?.fullName],
     fetcherFindSupportIssues,
@@ -42,7 +43,6 @@ const Issue: React.FC<{
         onSubmit={(e) => {
           e.preventDefault()
           setDidSubmit(true)
-          props.mutate((data) => ({ ...data, requestIssue: issueURL }))
           props.onNext()
         }}
       >
@@ -50,8 +50,8 @@ const Issue: React.FC<{
           <Error error={error} />
           <input
             id='githubRepo'
-            value={issueURL}
-            onChange={(e) => setIssueURL(e.currentTarget.value)}
+            value={props.requestIssue}
+            onChange={(e) => props.setRequestIssue(e.currentTarget.value)}
             placeholder={`github.com/${props.data?.fullName}/:number`}
             className='w-full px-4 py-2 my-4 border rounded shadow-lg'
             required
@@ -72,8 +72,10 @@ const Issue: React.FC<{
                     name='issue'
                     type='radio'
                     value={url}
-                    checked={issueURL === url}
-                    onChange={(e) => setIssueURL(e.currentTarget.value)}
+                    checked={props.requestIssue === url}
+                    onChange={(e) =>
+                      props.setRequestIssue(e.currentTarget.value)
+                    }
                   />
                   <div className='flex-1 px-4 text-left'>
                     <p className='font-bold'>
@@ -108,8 +110,8 @@ const Issue: React.FC<{
                   name='issue'
                   type='radio'
                   value={NONE_ISSUE}
-                  checked={issueURL === NONE_ISSUE}
-                  onChange={(e) => setIssueURL(e.currentTarget.value)}
+                  checked={props.requestIssue === NONE_ISSUE}
+                  onChange={(e) => props.setRequestIssue(e.currentTarget.value)}
                 />
                 <div className='flex-1 px-4 text-left'>
                   <p className='font-bold'>No issue exists</p>

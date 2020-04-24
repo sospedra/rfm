@@ -10,7 +10,8 @@ import Find from './Find'
 
 const Submit: React.FC<{}> = () => {
   const [repoUrl, setRepoUrl] = useState('')
-  const { data, error, mutate } = useSWR(repoUrl, fetcherSubmitRequest)
+  const [requestIssue, setRequestIssue] = useState('')
+  const { data, error } = useSWR(repoUrl, fetcherSubmitRequest)
   const [index, setIndex] = useState(0)
   const onNext = useCallback(() => setIndex((state) => (state + 1) % 3), [])
   const transitions = useTransition(index, (p) => p, {
@@ -50,10 +51,15 @@ const Submit: React.FC<{}> = () => {
                 />
               </animated.div>,
               <animated.div key={key} style={props}>
-                <Issue onNext={onNext} data={data} mutate={mutate} />
+                <Issue
+                  onNext={onNext}
+                  data={data}
+                  requestIssue={requestIssue}
+                  setRequestIssue={setRequestIssue}
+                />
               </animated.div>,
               <animated.div key={key} style={props}>
-                <Preview data={data} />
+                <Preview data={data} requestIssue={requestIssue} />
               </animated.div>,
             ][item]
           })}

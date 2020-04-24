@@ -11,16 +11,21 @@ const formatProperty = (key: string, data?: SubmitRequest) => {
 
 const Preview: React.FC<{
   data?: SubmitRequest
+  requestIssue: string
 }> = (props) => {
+  const repo = {
+    ...props.data,
+    requestIssue: props.requestIssue,
+  } as SubmitRequest
   return (
     <section className='flex flex-col items-center w-full py-6'>
       <h1 className='font-mono text-xl font-bold'>Save the request</h1>
       <h3 className='mb-4 text-lg'>
         You're gonna be redirected to our Github to save this request. After
-        that the project <b>{props.data?.fullName}</b> will be marked as calling
-        for maintainers.
+        that the project <b>{repo?.fullName}</b> will be marked as calling for
+        maintainers.
       </h3>
-      <Button href={createGithubIssue(props.data)}>Submit request</Button>
+      <Button href={createGithubIssue(repo)}>Submit request</Button>
       <div className='w-full text-left sm:w-auto'>
         <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
           Inspect
@@ -29,14 +34,14 @@ const Preview: React.FC<{
 
         <pre className='overflow-auto'>
           <p>{`{`}</p>
-          {Object.keys(props.data || {}).map((key) => (
+          {Object.keys(repo || {}).map((key) => (
             <p className='pl-4' key={key}>
               <span className='text-pink-500'>{key}</span>
               <span className='whitespace-pre-wrap'>
                 :
                 <span className='text-gray-800'>
                   {' '}
-                  {formatProperty(key, props.data)}
+                  {formatProperty(key, repo)}
                 </span>
                 ,
               </span>
