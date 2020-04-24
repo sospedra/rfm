@@ -4,6 +4,7 @@ import './button.css'
 const Button: React.FC<{
   disabled?: boolean
   href?: string
+  form?: string
   children: string
 }> = (props) => {
   return props.href ? (
@@ -19,6 +20,7 @@ const Button: React.FC<{
       disabled={props.disabled}
       id='submit'
       type='submit'
+      form={props.form}
       value={props.children}
       className={`w-64 px-4 py-2 text-white rounded shadow-lg ${
         props.disabled

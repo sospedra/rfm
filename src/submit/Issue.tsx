@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { createPortal } from 'react-dom'
 import Markdown from 'markdown-to-jsx'
 import useSWR from 'swr'
 import { isValidGithubUrl } from '../rfm/services/github'
@@ -13,7 +14,7 @@ import './issue.css'
 
 const NONE_ISSUE = 'NONE'
 
-const Find: React.FC<{
+const Issue: React.FC<{
   onNext: () => void
   data?: SubmitRequest
 }> = (props) => {
@@ -33,6 +34,7 @@ const Find: React.FC<{
         maintain the project
       </h3>
       <form
+        id='js-submit-issue'
         className='flex flex-col items-center w-full'
         onSubmit={(e) => {
           e.preventDefault()
@@ -51,9 +53,10 @@ const Find: React.FC<{
           />
           {!!data?.total && (
             <div className='flex flex-col flex-1 w-full'>
-              <p className='pt-4 pb-2 text-left'>
-                Maybe is some of these issues we found in the repo:
+              <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
+                Suggestions
               </p>
+              <p className='pb-2 text-left'>Maybe it's one of these</p>
               {data.requestList.map(
                 ({
                   id,
@@ -78,9 +81,9 @@ const Find: React.FC<{
                     />
                     <div className='flex-1 px-4 text-left'>
                       <p className='font-bold'>
-                        #{number} {title}
+                        <span className='text-sm'>#{number}</span> {title}
                       </p>
-                      <div className='w-full text-xs italic text-gray-800 markdown'>
+                      <div className='w-full text-xs italic text-gray-600 markdown'>
                         <Markdown>{body?.slice(0, 140)}</Markdown>
                         {'... '}
                         <a
@@ -125,12 +128,17 @@ const Find: React.FC<{
           )}
         </div>
 
-        <div className='fixed w-full p-2 bg-white'>
-          <Button disabled={isValidUrl}>Select request issue</Button>
-        </div>
+        {createPortal(
+          <div className='sticky bottom-0 left-0 right-0 flex justify-center w-full p-2 bg-white'>
+            <Button disabled={!isValidUrl} form='js-submit-issue'>
+              Select request issue
+            </Button>
+          </div>,
+          document.getElementsByTagName('main')[0],
+        )}
       </form>
     </section>
   )
 }
 
-export default Find
+export default Issue

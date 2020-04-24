@@ -9,6 +9,7 @@ html {
 html,
 body {
   @apply overflow-x-hidden;
+  display: contents;
 }
 a.link {
   @apply text-blue-600;
