@@ -6,6 +6,7 @@ import * as serviceWorker from './rfm/services/sw'
 import './tailwind.css'
 import Home from './home'
 import Submit from './submit'
+import Confirm from './confirm'
 
 const App: React.FC<{}> = () => {
   const location = useLocation()
@@ -22,6 +23,7 @@ const App: React.FC<{}> = () => {
           <Switch location={location}>
             <Route exact path='/' component={Home} />
             <Route path='/submit' component={Submit} />
+            <Route path='/confirm' component={Confirm} />
           </Switch>
         </animated.div>
       ))}
