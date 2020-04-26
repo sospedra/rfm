@@ -85,7 +85,7 @@ const Issue: React.FC<{
                       {'... '}
                       <a
                         href={url}
-                        className='text-blue-500 hover:text-blue-700'
+                        className='text-blue-500 hover:text-blue-800'
                         target='_blank'
                         rel='noopener noreferrer'
                       >

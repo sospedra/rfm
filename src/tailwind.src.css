@@ -18,13 +18,13 @@ a.link:hover {
   @apply text-blue-800;
 }
 a[href*="//"]:not([href*="sospedra.me"]),
-a[href*="//"]:not([href*="sospedra.github.io"])
+a[href*="//"]:not([href*="rfm.sospedra.me"])
 {
   display: inline-flex;
   position: relative;
 }
 a[href*="//"]:not([href*="sospedra.me"]):after,
-a[href*="//"]:not([href*="sospedra.github.io"]):after
+a[href*="//"]:not([href*="rfm.sospedra.me"]):after
 {
   @apply inline-block opacity-75;
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);

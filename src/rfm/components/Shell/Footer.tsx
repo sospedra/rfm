@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer: React.FC<{}> = () => {
   return (
@@ -20,6 +21,9 @@ const Footer: React.FC<{}> = () => {
       </p>
 
       <div className='flex flex-col items-end'>
+        <Link className='text-blue-600 hover:text-blue-800' to='/about'>
+          About
+        </Link>
         <a
           href='https://twitter.com/sospedra_r'
           target='_blank'

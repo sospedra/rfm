@@ -64,8 +64,9 @@ const List: React.FC<{
               href={body.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='block text-lg text-blue-600 hover:text-blue-800'
+              className='text-lg text-blue-600 hover:text-blue-800'
               onClick={() => track('click_repo', body)}
+              style={{ display: 'block' }}
             >
               {body.owner}/<b>{body.name}</b>
             </a>
@@ -122,7 +123,7 @@ const List: React.FC<{
           To get the best results{' '}
           <b className='font-semibold'>refine your query</b> or inspect the{' '}
           <a
-            className='text-blue-500 hover:text-blue-700'
+            className='text-blue-600 hover:text-blue-800'
             href='https://github.com/sospedra/rfm'
           >
             repo

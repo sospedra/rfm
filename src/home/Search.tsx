@@ -1,4 +1,6 @@
 import React from 'react'
+import Info from '../rfm/components/Info'
+import { Link } from 'react-router-dom'
 
 const Search: React.FC<{
   setQuery: (query: string) => void
@@ -8,7 +10,11 @@ const Search: React.FC<{
       className='flex flex-col items-center justify-center w-full text-center md:p-8'
       style={{ height: '50%' }}
     >
-      <h2 className='italic'>Request for maintainers</h2>
+      <h2 className='italic text-blue-600 whitespace-no-wrap hover:text-blue-800'>
+        <Link to='/about'>
+          Track OSS requests for maintainers <Info />
+        </Link>
+      </h2>
       <form
         className='w-full max-w-xl mx-auto'
         onSubmit={(e) => {

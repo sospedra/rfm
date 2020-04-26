@@ -10,7 +10,7 @@ const PHBanner: React.FC<{}> = () => {
   })
 
   return (
-    <aside className='flex items-center justify-center pb-4'>
+    <aside className='flex items-center justify-center pt-4 pb-4 sm:pt-0'>
       <a
         href='#'
         className='flex flex-row items-center p-4 bg-gray-800 rounded shadow-lg'

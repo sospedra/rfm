@@ -8,6 +8,7 @@ import './tailwind.css'
 import Home from './home'
 import Submit from './submit'
 import Confirm from './confirm'
+import About from './about'
 
 const App: React.FC<{}> = () => {
   const location = useLocation()
@@ -29,6 +30,7 @@ const App: React.FC<{}> = () => {
             <Route exact path='/' component={Home} />
             <Route path='/submit' component={Submit} />
             <Route path='/confirm' component={Confirm} />
+            <Route path='/about' component={About} />
           </Switch>
         </animated.div>
       ))}
