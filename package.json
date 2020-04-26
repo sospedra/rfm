@@ -1,7 +1,7 @@
 {
   "name": "rfm",
   "version": "0.1.1",
-  "homepage": "https://sospedra.github.io/rfm",
+  "homepage": "https://rfm.sospedra.me",
   "private": false,
   "license": "SEE LICENSE IN LICENSE",
   "eslintConfig": {
