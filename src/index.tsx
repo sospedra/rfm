@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { useTransition, animated } from 'react-spring'
 import { HashRouter, Route, useLocation, Switch } from 'react-router-dom'
 import * as serviceWorker from './rfm/services/sw'
+import { track } from './rfm/services/analytics'
 import './tailwind.css'
 import Home from './home'
 import Submit from './submit'
@@ -15,6 +16,10 @@ const App: React.FC<{}> = () => {
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
+
+  useEffect(() => {
+    track('pview', { route: location.pathname })
+  }, [location])
 
   return (
     <>

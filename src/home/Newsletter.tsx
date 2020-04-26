@@ -1,4 +1,5 @@
 import React from 'react'
+import { track } from '../rfm/services/analytics'
 import './newsletter.css'
 
 const FORM_ID = '1346503'
@@ -6,6 +7,7 @@ const FORM_ID = '1346503'
 const Newsletter: React.FC<{}> = () => {
   return (
     <form
+      onSubmit={() => track('newsletter')}
       action={`https://app.convertkit.com/forms/${FORM_ID}/subscriptions`}
       className='mx-auto bg-white rounded shadow-lg formkit-form'
       method='post'

@@ -12,6 +12,7 @@ import Comments from '../rfm/components/Comments'
 import Error from '../rfm/components/Error'
 import Button from './Button'
 import './issue.css'
+import { track } from '../rfm/services/analytics'
 
 const Issue: React.FC<{
   onNext: () => void
@@ -40,6 +41,7 @@ const Issue: React.FC<{
         onSubmit={(e) => {
           e.preventDefault()
           setDidSubmit(true)
+          track('submit', { step: 'issue' })
           props.onNext()
         }}
       >

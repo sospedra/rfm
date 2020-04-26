@@ -5,6 +5,7 @@ import { Request } from '../rfm/services/api/github'
 import Star from '../rfm/components/Star'
 import Issue from '../rfm/components/Issue'
 import Circle from '../rfm/components/Circle'
+import { track } from '../rfm/services/analytics'
 
 const selectMessage = (total?: number) => {
   switch (total) {
@@ -52,6 +53,7 @@ const List: React.FC<{
       </section>
     )
   }
+
   return (
     <section className='w-full py-4'>
       {selectMessage(props.total)}
@@ -62,8 +64,8 @@ const List: React.FC<{
               href={body.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='text-lg text-blue-600 hover:text-blue-800'
-              style={{ display: 'block' }}
+              className='block text-lg text-blue-600 hover:text-blue-800'
+              onClick={() => track('click_repo', body)}
             >
               {body.owner}/<b>{body.name}</b>
             </a>

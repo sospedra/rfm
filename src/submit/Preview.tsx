@@ -2,6 +2,7 @@ import React from 'react'
 import { SubmitRequest } from '../rfm/services/api/github'
 import { createGithubIssue } from '../rfm/services/github'
 import Button from './Button'
+import { track } from '../rfm/services/analytics'
 
 const formatProperty = (key: string, data?: SubmitRequest) => {
   const property = data && data[key as keyof SubmitRequest]
@@ -39,7 +40,12 @@ const Preview: React.FC<{
         that the project <b>{repo?.fullName}</b> will be marked as calling for
         maintainers.
       </h3>
-      <Button href={createGithubIssue(repo)}>Submit request</Button>
+      <Button
+        onClick={() => track('submit', { step: 'preview' })}
+        href={createGithubIssue(repo)}
+      >
+        Submit request
+      </Button>
       <div className='w-full text-left sm:w-auto'>
         <p className='pt-4 font-mono text-xs font-bold text-left text-gray-600'>
           Inspect

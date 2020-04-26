@@ -3,6 +3,7 @@ import { createGithubRepoUrl, isValidGithubUrl } from '../rfm/services/github'
 import { SubmitRequest } from '../rfm/services/api/github'
 import Error from '../rfm/components/Error'
 import Button from './Button'
+import { track } from '../rfm/services/analytics'
 
 const Repo: React.FC<{
   setRepoUrl: (repo: string) => void
@@ -15,6 +16,7 @@ const Repo: React.FC<{
 
   useEffect(() => {
     if (props.data?.fullName) {
+      track('submit', { step: 'find' })
       props.onNext()
     } else {
       setLoading(false)

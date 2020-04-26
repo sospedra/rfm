@@ -14,7 +14,8 @@ const Search: React.FC<{
         onSubmit={(e) => {
           e.preventDefault()
           const form = new FormData(e.currentTarget)
-          props.setQuery(form.get('search') as string)
+          const query = form.get('search') as string
+          props.setQuery(query)
         }}
       >
         <label htmlFor='search' className='block'>

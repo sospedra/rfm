@@ -6,6 +6,7 @@ const Button: React.FC<{
   href?: string
   form?: string
   loading?: boolean
+  onClick?: () => any
   children: string
 }> = (props) => {
   return props.href ? (
@@ -13,6 +14,7 @@ const Button: React.FC<{
       className='w-64 px-4 py-2 text-white bg-pink-600 rounded shadow-lg hover:bg-pink-700'
       href={props.href}
       id='submit'
+      onClick={props.onClick}
     >
       {props.children}
     </a>
