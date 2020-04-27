@@ -24,7 +24,7 @@ const Newsletter: React.FC<{}> = () => {
           <div data-element='subheader' className='formkit-subheader'>
             <p>
               Subscribe to get a <b>monthly</b> single email with the latest
-              repositories addded
+              repositories added
             </p>
           </div>
           <div className='formkit-image'>

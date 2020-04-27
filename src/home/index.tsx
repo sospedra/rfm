@@ -22,7 +22,7 @@ const Home: React.FC<{}> = () => {
   return (
     <Shell>
       <Search setQuery={setQuery} />
-      {/* <PHBanner /> */}
+      <PHBanner />
       <Error error={error} />
       <List {...data} />
       <Newsletter />
