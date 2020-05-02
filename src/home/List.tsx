@@ -82,7 +82,7 @@ const List: React.FC<{
               ))}
             </div>
             <p className='text-sm text-gray-700'>
-              Requested at{' '}
+              Requested on{' '}
               <b className='font-semibold'>{createdAt.toLocaleDateString()}</b>{' '}
               <a
                 href={url}
@@ -90,7 +90,7 @@ const List: React.FC<{
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                Did something change?
+                Has something changed since?
               </a>
             </p>
             <div className='flex flex-row pt-1 text-sm text-gray-700'>
