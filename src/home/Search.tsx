@@ -6,10 +6,7 @@ const Search: React.FC<{
   setQuery: (query: string) => void
 }> = (props) => {
   return (
-    <section
-      className='flex flex-col items-center justify-center w-full text-center md:p-8'
-      style={{ height: '50%' }}
-    >
+    <section className='flex flex-col items-center justify-center w-full text-center md:p-8'>
       <h2 className='italic text-blue-600 whitespace-no-wrap hover:text-blue-800'>
         <Link to='/about'>
           Track OSS requests for maintainers <Info />
