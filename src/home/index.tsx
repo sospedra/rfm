@@ -3,10 +3,11 @@ import useSWR from 'swr'
 import { fetcherRequestList } from '../rfm/services/api/github'
 import Shell from '../rfm/components/Shell'
 import Error from '../rfm/components/Error'
-import { track } from '../rfm/services/analytics'
 import Search from './Search'
 import List from './List'
 import Newsletter from './Newsletter'
+import { track } from '../rfm/services/analytics'
+import PHBanner from './PHBanner'
 
 const Home: React.FC<{}> = () => {
   const [query, setQuery] = useState(' ')
@@ -21,6 +22,7 @@ const Home: React.FC<{}> = () => {
   return (
     <Shell>
       <Search setQuery={setQuery} />
+      <PHBanner />
       <Error error={error} />
       <List {...data} />
       <Newsletter />
