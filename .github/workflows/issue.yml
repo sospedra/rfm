@@ -1,7 +1,7 @@
 name: Create external issues
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled]
 
 jobs:
   create:
