@@ -2,6 +2,8 @@
 
 ## _Track OSS requests for maintainers_
 
+[![Request for maintainers - Find any OSS project calling for collaborators | Product Hunt Embed](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=195531&theme=dark)](https://www.producthunt.com/posts/request-for-maintainers?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-request-for-maintainers)
+
 ### What's this?
 
 RFM is community-driven platform to **track OSS repositories that need a maintainer** or support.

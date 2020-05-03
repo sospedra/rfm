@@ -42,7 +42,19 @@ const About: React.FC<{}> = (props) => {
       <h2 className='text-lg text-center'>
         Track OSS requests for maintainers
       </h2>
-
+      <a
+        href='https://www.producthunt.com/posts/request-for-maintainers?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-request-for-maintainers'
+        className='justify-center w-full mt-4'
+        target='_blank'
+      >
+        <img
+          src='https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=195531&theme=dark'
+          alt='Request for maintainers - Find any OSS project calling for collaborators | Product Hunt Embed'
+          style={{ width: 250, height: 54 }}
+          width='250px'
+          height='54px'
+        />
+      </a>
       <article className='markdown-body'>
         <Markdown>{md}</Markdown>
       </article>
