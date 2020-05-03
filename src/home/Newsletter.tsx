@@ -7,6 +7,7 @@ const FORM_ID = '1346503'
 const Newsletter: React.FC<{}> = () => {
   return (
     <form
+      id='newsletter'
       onSubmit={() => track('newsletter')}
       action={`https://app.convertkit.com/forms/${FORM_ID}/subscriptions`}
       className='mx-auto bg-white rounded shadow-lg formkit-form'
