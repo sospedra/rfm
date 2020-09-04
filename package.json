@@ -46,7 +46,7 @@
     "@types/react-dom": "^16.9.0",
     "human-number": "^1.0.5",
     "language-map": "^1.4.0",
-    "markdown-to-jsx": "^6.11.1",
+    "markdown-to-jsx": "^6.11.4",
     "mixpanel-browser": "^2.35.0",
     "new-github-issue-url": "^0.2.1",
     "react": "^16.13.1",
