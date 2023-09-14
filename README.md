@@ -12,7 +12,7 @@ RFM is community-driven platform to **track OSS repositories that need a maintai
 
 You're interested in this project if you've been in any of these situations:
 
-- As a **user**, uou find and interesting library. But it seems unmaintained. How to know for sure?
+- As a **user**, you find and interesting library. But it seems unmaintained. How to know for sure?
 - As a **maintainer**, you can't find anyone who wants to take the lead. Where to find them?
 - As a **developer**, you want to contribute to the community but don't know where to start. Which projects need help?
 
